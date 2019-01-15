@@ -1,4 +1,4 @@
-package keyu.site.askme;
+package site.keyu.askme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
