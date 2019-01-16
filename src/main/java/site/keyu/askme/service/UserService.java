@@ -27,9 +27,25 @@ public class UserService {
      * @param username
      * @param password
      */
-    public void register(String username,String password){
+    public Map<String, Object> register(String username,String password){
+        Map<String, Object> map = new HashMap<String, Object>();
         //验证环节
-        User user;
+        if (username == null) {
+            map.put("msg", "用户名不能为空");
+            return map;
+        }
+
+        if (password == null) {
+            map.put("msg", "密码不能为空");
+            return map;
+        }
+
+        User user = userDao.selectByName(username);
+
+        if (user != null) {
+            map.put("msg", "用户名已经被注册");
+            return map;
+        }
         //写入数据库
         user = new User();
         user.setName(username);
@@ -38,6 +54,11 @@ public class UserService {
         user.setHeadUrl(head);
         user.setPassword(Md5Util.MD5(password+user.getSalt()));
         userDao.insertUser(user);
+
+        // 登陆
+        String ticket = addLoginTicket(user.getId());
+        map.put("ticket", ticket);
+        return map;
     }
 
     /**
@@ -49,7 +70,22 @@ public class UserService {
 
         Map<String,Object> map = new HashMap<>();
         //验证环节
+        if (username == null) {
+            map.put("msg", "用户名不能为空");
+            return map;
+        }
+
+        if (password == null) {
+            map.put("msg", "密码不能为空");
+            return map;
+        }
+
         User user = userDao.selectByName(username);
+
+        if (user == null) {
+            map.put("msg", "用户名不存在");
+            return map;
+        }
 
         //验证密码
         if(Md5Util.MD5(password+user.getSalt()).equals( user.getPassword())){
@@ -64,6 +100,10 @@ public class UserService {
         map.put("ticket",ticket);
 
         return map;
+    }
+
+    public void logout(String ticket){
+        loginTicketDao.updateStatus(ticket,1);
     }
 
     public String addLoginTicket(int userId){
@@ -81,5 +121,6 @@ public class UserService {
 
 
     }
+
 
 }

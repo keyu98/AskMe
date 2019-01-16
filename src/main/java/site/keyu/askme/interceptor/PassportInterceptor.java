@@ -53,7 +53,7 @@ public class PassportInterceptor implements HandlerInterceptor {
                 return true;
             }
             int  id = loginTicket.getUserId();
-            User user = userDao.selectById(1);
+            User user = userDao.selectById(id);
 
             //将用户信息放入上下文
             hostHolder.setUser(user);

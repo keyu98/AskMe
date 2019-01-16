@@ -2,6 +2,7 @@ package site.keyu.askme.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 import site.keyu.askme.dao.QuestionDao;
 import site.keyu.askme.pojo.Question;
 
@@ -22,7 +23,15 @@ public class QuestionService {
      * @return
      */
     public int postQuestion(Question question){
+        //HTML过滤
+        question.setContent(HtmlUtils.htmlEscape(question.getContent()));
+        question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
 
+        //敏感词过滤
+        //...
+
+
+        //发布
         return  questionDao.insertQuestion(question) > 0 ? question.getId() : 0;
     }
 

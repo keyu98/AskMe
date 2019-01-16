@@ -3,10 +3,7 @@ package site.keyu.askme.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import site.keyu.askme.service.UserService;
 
 import javax.servlet.http.Cookie;
@@ -22,7 +19,15 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-
+    /**
+     * 登录
+     * @param model
+     * @param username
+     * @param password
+     * @param rememberme
+     * @param response
+     * @return
+     */
     @RequestMapping(path = {"/login/"},method = {RequestMethod.POST})
     @ResponseBody
     public String login(Model model, @RequestParam("username") String username,
@@ -50,5 +55,18 @@ public class LoginController {
         }
         return "failed";
     }
+
+    /**
+     * 注销
+     * @param ticket
+     * @return
+     */
+    @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public String logout(@CookieValue("ticket") String ticket) {
+        userService.logout(ticket);
+        return "logout success";
+    }
+
 
 }
