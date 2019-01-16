@@ -1,5 +1,8 @@
 package site.keyu.askme.pojo;
 
+/**
+ * @Author:Keyu
+ */
 public class User {
     private int id;
     private String name;

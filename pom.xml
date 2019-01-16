@@ -60,6 +60,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.13</version>
         </dependency>
+        <!-- 整合模板引擎-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

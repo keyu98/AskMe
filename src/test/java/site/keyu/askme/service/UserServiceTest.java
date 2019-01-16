@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * @Author:Keyu
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserServiceTest {
@@ -15,6 +18,6 @@ public class UserServiceTest {
 
     @Test
     public void registerTest(){
-        userService.register("keyu2","123456");
+        userService.register("user3","123456");
     }
 }
