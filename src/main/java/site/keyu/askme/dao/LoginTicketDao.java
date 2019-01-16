@@ -17,6 +17,9 @@ public interface LoginTicketDao {
     int addTicket(LoginTicket ticket);
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where ticket=#{ticket}"})
+    @Results({
+            @Result(property = "userId",column = "user_id"),
+    })
     LoginTicket selectByTicket(String ticket);
 
     @Update({"update ", TABLE_NAME, " set status=#{status} where ticket=#{ticket}"})

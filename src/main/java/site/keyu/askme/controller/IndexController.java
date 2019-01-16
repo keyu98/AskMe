@@ -1,6 +1,7 @@
 package site.keyu.askme.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +26,8 @@ public class IndexController {
 
 
     @RequestMapping(path = "/",method = {RequestMethod.GET})
-    public String returnhome(){
+    public String returnhome(Model model){
+        //model.addAttribute("user","123");
         return  "home";
     }
 }
