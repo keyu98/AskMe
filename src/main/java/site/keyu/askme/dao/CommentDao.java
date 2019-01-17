@@ -37,6 +37,16 @@ public interface CommentDao {
     })
     List<Comment> selectCommentByEntity(@Param("entityId") int entityId, @Param("entityType") int entityType);
 
+    @Select({"select",SELECT_FIELDS, " from ", TABLE_NAME, " order by id desc limit #{offset},#{limit}"})
+    @Results({
+            @Result(property = "userId",column = "user_id"),
+            @Result(property = "createdDate",column = "created_date"),
+            @Result(property = "entityId",column = "entity_id"),
+            @Result(property = "entityType",column = "entity_type"),
+    })
+    List<Comment> selectLatestComments(@Param("offset") int offset,
+                                       @Param("limit") int limit);
+
     @Select({"select count(id) from ", TABLE_NAME, " where entity_id=#{entityId} and entity_type=#{entityType}"})
     int getCommentCount(@Param("entityId") int entityId, @Param("entityType") int entityType);
 

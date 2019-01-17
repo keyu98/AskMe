@@ -46,7 +46,7 @@ public class QuestionService {
     }
 
     /**
-     * 查找一些问题
+     * 查找最近的问题
      * @param userId
      * @param offset
      * @param limit
@@ -54,7 +54,21 @@ public class QuestionService {
      */
     public List<Question> findLatestQuestion(int userId,int offset,int limit){
 
-        return questionDao.selectLatestQuestions(userId,offset,limit);
+        return questionDao.selectLatestQuestionsByUserId(userId,offset,limit);
     }
 
+    /**
+     * 查找最近的问题
+     * @param offset
+     * @param limit
+     * @return
+     */
+    public List<Question> findLatestQuestion(int offset,int limit){
+
+        return questionDao.selectLatestQuestions(offset,limit);
+    }
+
+    public int getQuestionCount(){
+        return 0;
+    }
 }

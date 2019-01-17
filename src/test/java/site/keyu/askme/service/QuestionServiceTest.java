@@ -36,6 +36,21 @@ public class QuestionServiceTest {
     }
 
     @Test
+    public void postOneQuestionTest(){
+
+
+        Question question = new Question();
+        question.setTitle("有什么笑话可以笑一辈子？");
+        question.setContent("打的去朋友家，路上瞌睡了一小会，本来30元的路程被司机绕成80元！我豪气地说:“大哥，给你100元不用找了！”司机到处看了看车上说:“钱呢？放哪了？”我下车就跑，冲司机喊到:“我都跟你说了不用找了，找也找不到的！");
+        question.setCreatedDate(new Date());
+        question.setUserId(2);
+        question.setCommentCount(0);
+        question.setStatus(0);
+        questionService.postQuestion(question);
+
+    }
+
+    @Test
     public void findQuestion(){
 
         Question question = questionService.findQuestionById(3);

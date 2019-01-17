@@ -25,9 +25,12 @@ public class IndexController {
     }
 
 
-    @RequestMapping(path = "/",method = {RequestMethod.GET})
-    public String returnhome(Model model){
-        //model.addAttribute("user","123");
-        return  "home";
-    }
+//    @RequestMapping(path = {"/","/index"},method = {RequestMethod.GET})
+//    @ResponseBody
+//    public String returnhome(Model model){
+//        //model.addAttribute("user","123");
+//
+//        return  "Welcome to Homepage!";
+//    }
+
 }

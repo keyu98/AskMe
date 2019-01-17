@@ -24,10 +24,17 @@ public interface QuestionDao {
             @Result(property = "userId",column = "user_id"),
             @Result(property = "createdDate",column = "created_date")
     })
-    List<Question> selectLatestQuestions(@Param("userId") int userId,
+    List<Question> selectLatestQuestionsByUserId(@Param("userId") int userId,
                                          @Param("offset") int offset,
                                          @Param("limit") int limit);
 
+    @Select({"select",SELECT_FIELDS, " from ", TABLE_NAME, " order by id desc limit #{offset},#{limit}"})
+    @Results({
+            @Result(property = "userId",column = "user_id"),
+            @Result(property = "createdDate",column = "created_date")
+    })
+    List<Question> selectLatestQuestions(@Param("offset") int offset,
+                                         @Param("limit") int limit);
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
     @Results({

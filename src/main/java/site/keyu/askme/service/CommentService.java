@@ -77,4 +77,14 @@ public class CommentService {
     public Comment getCommentById(int id) {
         return commentDao.getCommentById(id);
     }
+
+    /**
+     * 查找最新评论
+     * @param offset
+     * @param limit
+     * @return
+     */
+    public List<Comment> getLatestComment(int offset,int limit){
+        return commentDao.selectLatestComments(offset, limit);
+    }
 }

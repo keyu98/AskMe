@@ -106,6 +106,11 @@ public class UserService {
         loginTicketDao.updateStatus(ticket,1);
     }
 
+
+    public User getUser(int id){
+        return userDao.selectById(id);
+    }
+
     public String addLoginTicket(int userId){
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(userId);
