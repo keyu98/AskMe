@@ -28,8 +28,7 @@ public class LoginController {
      * @param response
      * @return
      */
-    @RequestMapping(path = {"/login/"},method = {RequestMethod.POST})
-    @ResponseBody
+    @RequestMapping(path = {"/login"},method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username") String username,
                         @RequestParam("password") String password,
                         //@RequestParam(value="next", required = false) String next,
@@ -45,15 +44,42 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
 
-               return "success";
+               return "redirect:/";
             }
 
         } catch (Exception e) {
-            System.out.println("登录异常");
+            model.addAttribute("failedtologin","服务器处理失败");
+            return "login";
+//            System.out.println("登录异常");
 
 
         }
-        return "failed";
+        model.addAttribute("failedtologin","用户名不存在或者密码错误");
+        return "login";
+    }
+
+    /**
+     * 注册
+     * @param model
+     * @param username
+     * @param password
+     * @param headUrl
+     * @return
+     */
+    @RequestMapping(path = {"/reg"},method = {RequestMethod.POST})
+    public String register(Model model, @RequestParam("username") String username,
+                           @RequestParam("password") String password,
+                           @RequestParam(value = "headUrl" )String headUrl
+                           ){
+                try {
+                    Map<String, Object> map = userService.login(username, password);
+                    userService.register(username, password,headUrl);
+                    model.addAttribute("failedtologin","注册成功，请登录");
+                    return "login";
+                } catch (Exception e) {
+                    model.addAttribute("failedtologin","服务器处理失败");
+                    return "login";
+                }
     }
 
     /**
@@ -62,11 +88,14 @@ public class LoginController {
      * @return
      */
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
     public String logout(@CookieValue("ticket") String ticket) {
         userService.logout(ticket);
-        return "logout success";
+        return "redirect:/";
     }
+
+
+
+
 
 
 }

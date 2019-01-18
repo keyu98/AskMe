@@ -86,16 +86,16 @@
 						<li><a href="#" class="text-center">View All</a></li>
 					</ul>
 				</li>
-				<li class="dropdown" th:if="${user}"><a href="#" class="dropdown-toggle" data-toggle="dropdown" th:text="${user.name}"><span
+				<li class="dropdown" th:if="${user}"><a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" th:text="${user.name}"><span
 						class="glyphicon glyphicon-user"></span>Admin <b class="caret"></b></a>
 					<ul class="dropdown-menu" >
-						<li><a href="#"><span class="glyphicon glyphicon-user" ></span>我的主页</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-home" ></span>我的主页</a></li>
 						<li class="divider"></li>
 						<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>注销</a></li>
 					</ul>
 				</li>
 
-				<li class="dropdown" th:if="${user == Null}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+				<li class="dropdown" th:if="${user == Null}"><a href="/login" ><span
 						class="glyphicon glyphicon-log-in"></span>登录</a>
 
 				</li>
@@ -145,7 +145,7 @@
 											<div class="message-head clearfix"  >
 												<div class="avatar pull-left" style="margin-top: 15px;margin-right: 15px; "><a href="#"><img src="http://images.nowcoder.com/head/982t.png"></a></div>
 												<div class="user-detail">
-													<h5 class="handle" style="margin-top: 15px;margin-right: 15px; " th:text="${vo.user.name}">用户名</h5>
+													<h5 class="handle " style="margin-top: 15px;margin-right: 15px; " th:text="${vo.user.name}">用户名</h5>
 
 
 													<div class="post-meta">

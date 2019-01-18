@@ -27,7 +27,7 @@ public class UserService {
      * @param username
      * @param password
      */
-    public Map<String, Object> register(String username,String password){
+    public Map<String, Object> register(String username,String password,String headUrl){
         Map<String, Object> map = new HashMap<String, Object>();
         //验证环节
         if (username == null) {
@@ -50,8 +50,8 @@ public class UserService {
         user = new User();
         user.setName(username);
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
-        String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
-        user.setHeadUrl(head);
+        //String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
+        user.setHeadUrl(headUrl);
         user.setPassword(Md5Util.MD5(password+user.getSalt()));
         userDao.insertUser(user);
 

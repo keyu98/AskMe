@@ -18,6 +18,6 @@ public class UserServiceTest {
 
     @Test
     public void registerTest(){
-        userService.register("user3","123456");
+//        userService.register("user3","123456");
     }
 }
