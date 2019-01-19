@@ -87,4 +87,6 @@ public class CommentService {
     public List<Comment> getLatestComment(int offset,int limit){
         return commentDao.selectLatestComments(offset, limit);
     }
+
+
 }

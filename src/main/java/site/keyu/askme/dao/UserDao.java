@@ -18,10 +18,16 @@ public interface UserDao {
     int insertUser(User user);
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
+    @Results({
+            @Result(property = "headUrl",column = "head_url"),
+    })
     User selectById(int id);
 
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where name=#{name}"})
+    @Results({
+            @Result(property = "headUrl",column = "head_url"),
+    })
     User selectByName(String name);
 
 

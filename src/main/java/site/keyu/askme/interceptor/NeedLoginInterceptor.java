@@ -21,7 +21,8 @@ public class NeedLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         if (hostHolder.getUser() == null) {
-            httpServletResponse.sendRedirect("/reglogin?next=" + httpServletRequest.getRequestURI());
+//            System.out.println("权限不够");
+            httpServletResponse.sendRedirect("/login");
             return false;
         }
         return true;

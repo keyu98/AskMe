@@ -89,17 +89,18 @@ public class UserService {
 
         //验证密码
         if(Md5Util.MD5(password+user.getSalt()).equals( user.getPassword())){
-            System.out.println("用户登录成功");
+//            System.out.println("用户登录成功");
+            String ticket = addLoginTicket(user.getId());
+            map.put("ticket",ticket);
+
+            return map;
         }
         else {
-            System.out.println("密码错误"+Md5Util.MD5(password+user.getSalt()) + "!=" + user.getPassword());
+//            System.out.println("密码错误"+Md5Util.MD5(password+user.getSalt()) + "!=" + user.getPassword());
             return map;
         }
 
-        String ticket = addLoginTicket(user.getId());
-        map.put("ticket",ticket);
 
-        return map;
     }
 
     public void logout(String ticket){

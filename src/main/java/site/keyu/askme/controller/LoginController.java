@@ -31,7 +31,6 @@ public class LoginController {
     @RequestMapping(path = {"/login"},method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        //@RequestParam(value="next", required = false) String next,
                         @RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
                         HttpServletResponse response) {
         try {

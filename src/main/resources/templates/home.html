@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html >
+<html lang="zh-CN"  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="icon" href="../../favicon.ico">
-	<link href="css/home.css" rel="stylesheet">
+
+
 	<!--背景图片-->
 	<div id="web_bg" style="background-image: url(image/bg.png);"></div>
 	</div>
@@ -24,20 +25,23 @@
 	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 	<script src="js/jquery-1.8.3.js"></script>
+
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 	<!------ Include the above in your HEAD tag ---------->
-
+	<!--<script type="text/javascript" src="js/quesion.js"></script>-->
+	<link href="css/home.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
 
 <body>
 <div class="container" >
+
 	<nav class="navbar navbar-default" role="navigation">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -45,12 +49,12 @@
 				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
 					class="icon-bar"></span><span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="http://www.jquery2dotnet.com">AskMe</a>
+			<a class="navbar-brand" href="/">AskMe</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span>问题广场</a></li>
+				<li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span>问题广场</a></li>
 
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
 						class="glyphicon glyphicon-search"></span>查找<b class="caret"></b></a>
@@ -143,7 +147,7 @@
 										</div>
 										<div class="offer-content">
 											<div class="message-head clearfix"  >
-												<div class="avatar pull-left" style="margin-top: 15px;margin-right: 15px; "><a href="#"><img src="http://images.nowcoder.com/head/982t.png"></a></div>
+												<div class="avatar pull-left" style="margin-top: 15px;margin-right: 15px; "><a href="#"><img img th:src="@{${vo.user.headUrl}}" src="http://images.nowcoder.com/head/982t.png"></a></div>
 												<div class="user-detail">
 													<h5 class="handle " style="margin-top: 15px;margin-right: 15px; " th:text="${vo.user.name}">用户名</h5>
 
@@ -152,7 +156,7 @@
 														<div class="asker-meta">
 															<span class="qa-message-what"></span>
 															<span class="qa-message-when">
-																	<span class="qa-message-when-data" th:text="${vo.question.createdDate}">Time</span>
+																	<span class="qa-message-when-data" th:text="${#dates.format(vo.question.createdDate,'yyyy-MM-dd HH:mm:ss')}">Time</span>
 																</span>
 															<span class="qa-message-who">
 																	<span class="qa-message-who-pad">by </span>
@@ -165,11 +169,11 @@
 											</div>
 
 											<HR>
-											<h3 class="lead" th:utext="${vo.question.title}">
+											<a class="lead" th:utext="${vo.question.title}" th:href="@{~/qst(id = ${vo.question.id})}" >
 												问题标题
-											</h3>
+											</a>
 
-											<p th:utext="${vo.question.content}">
+											<p th:utext="${vo.question.content}" >
 												问题内容
 											</p>
 
@@ -246,16 +250,19 @@
 
 						</a>
 
-						<a href="#" class="list-group-item" th:each="cvo : ${cvos}">
-							<img class = "pull-left img-circle" src="http://images.nowcoder.com/head/112t.png">
-							<div class="">
-								<p class="list-group-item-heading" th:text="${cvo.user.name}" style="margin-left: 50px; color:skyblue;">用户名</p>
-								<p style="margin-left: 50px; color: #9D9D9D;" th:utext="${cvo.comment.createdDate}+回答了"}><small>回答了：</small></p>
+							<tr th:each="cvo : ${cvos}">
+							<a  class="list-group-item"  href=""  th:href="@{~/qst(id = ${cvo.comment.entityId})}" >
+								<img th:src="@{${cvo.user.headUrl}}" class = "pull-left img-circle" src="http://images.nowcoder.com/head/112t.png">
+								<div class="">
+									<p class="list-group-item-heading" th:text="${cvo.user.name}" style="margin-left: 50px; color:skyblue;">用户名</p>
+									<p style="margin-left: 50px; color: #9D9D9D;" th:utext="${#dates.format(cvo.comment.createdDate,'yyyy-MM-dd HH:mm:ss')}+回答了"}><small>回答了：</small></p>
 
-							</div>
+								</div>
 
-							<p class = "list-group-item-text " th:utext="${cvo.comment.content}">请求一个Bootstrap组件的网站</p>
-						</a>
+								<p class = "list-group-item-text " th:utext="${cvo.comment.content}">请求一个Bootstrap组件的网站</p>
+							</a>
+							</tr>
+
 
 					</div>
 
