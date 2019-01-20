@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import site.keyu.askme.pojo.Comment;
 import site.keyu.askme.pojo.HostHolder;
 import site.keyu.askme.service.CommentService;
+import site.keyu.askme.service.QuestionService;
 
 import java.util.Date;
 
@@ -26,6 +27,8 @@ public class CommentController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    QuestionService questionService;
 
     @RequestMapping(path = "/user/submitcmt", method = {RequestMethod.POST})
     public String addComment(RedirectAttributes redirectAttributes,
@@ -39,8 +42,11 @@ public class CommentController {
         comment.setContent(content);
         comment.setCreatedDate(new Date());
         comment.setUserId(hostHolder.getUser().getId());
-
         commentService.addComment(comment);
+
+        int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
+        questionService.updateCommentCount(comment.getEntityId(), count);
+
         redirectAttributes.addAttribute("id", id);
         return "redirect:/qst";
     }

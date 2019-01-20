@@ -1,11 +1,9 @@
 package site.keyu.askme.service;
 
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import site.keyu.askme.pojo.Comment;
-import site.keyu.askme.pojo.CommentViewObject;
-import site.keyu.askme.pojo.Question;
-import site.keyu.askme.pojo.ViewObject;
+import site.keyu.askme.pojo.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,14 @@ public class LastedViewService {
      UserService userService;
 
      @Autowired
+     LikeService likeService;
+
+     @Autowired
      CommentService commentService;
+
+
+     @Autowired
+     HostHolder hostHolder;
     /**
      * 查找问题视图
      * @param offset
@@ -69,9 +74,23 @@ public class LastedViewService {
         List<Comment> commentList = commentService.getCommentsByEntity(id,0);
         List<CommentViewObject> cvos = new ArrayList<>();
         for (Comment comment:commentList){
+            int commentId = comment.getId();
+
+
             CommentViewObject cvo = new CommentViewObject();
             cvo.setComment(comment);
+            cvo.setLike(likeService.getLikeCount(0,commentId));
+            cvo.setDislike(likeService.getDislikeCount(0,commentId));
             cvo.setUser(userService.getUser(comment.getUserId()));
+
+
+            if (hostHolder.getUser() != null){
+
+                int userId = hostHolder.getUser().getId();
+                cvo.setHaslike(likeService.hasLike(userId,0,commentId));
+                cvo.setHasdislike(likeService.hasDislike(userId,0,commentId));
+            }
+
             cvos.add(cvo);
         }
 

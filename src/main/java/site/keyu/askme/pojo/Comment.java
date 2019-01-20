@@ -8,7 +8,12 @@ import java.util.Date;
 public class Comment {
     private int id;
     private int userId;
+
     private int entityId;
+
+    /**
+     * Type:0 QUESTION
+     */
     private int entityType;
     private String content;
     private Date createdDate;

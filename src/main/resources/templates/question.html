@@ -160,12 +160,34 @@
 										   <div class="clearfix" ></div>
 											<p th:utext="${cmt.comment.content}">Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 											<p>
-												
-												<button type="button" class="btn btn-success pull-right" aria-label="Left Align">
-												  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">11</span>
+											<form action="/user/like" method="post" th:if="${not cmt.haslike and not cmt.hasdislike}">
+											    <input type="hidden" name="commentId" th:value="${cmt.comment.id}" >
+												<button type="submit" class="btn btn-default pull-right " aria-label="Left Align">
+
+												  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" th:text="${cmt.like}">11</span>
 												</button>
-												<button type="button" class="btn btn-default pull-right" aria-label="Left Align">
-												  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">1</span>
+										    </form>
+											<form action="/user/dislike" method="post" th:if="${not cmt.haslike and not cmt.hasdislike}">
+												<input type="hidden" name="commentId" th:value="${cmt.comment.id}" >
+												<button type="submit" class="btn btn-default pull-right" aria-label="Left Align" >
+													<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" th:text="${cmt.dislike}">1</span>
+												</button>
+											</form>
+
+											    <button type="button" class="btn btn-success pull-right disabled" aria-label="Left Align" th:if="${cmt.haslike}">
+													<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" th:text="${cmt.like}">11</span>
+												</button>
+
+												<button type="button" class="btn btn-default pull-right disabled" aria-label="Left Align" th:if="${cmt.haslike}">
+													<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" th:text="${cmt.dislike}">1</span>
+												</button>
+
+												<button type="button" class="btn btn-default pull-right disabled" aria-label="Left Align" th:if="${cmt.hasdislike}">
+													<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" th:text="${cmt.like}">11</span>
+												</button>
+
+												<button type="button" class="btn btn-danger pull-right disabled" aria-label="Left Align" th:if="${cmt.hasdislike}">
+													<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" th:text="${cmt.dislike}">11</span>
 												</button>
 
 										   </p>
@@ -220,7 +242,7 @@
 							<div class="col-md-12">
 								<div class="thumbnail" style="margin-top: 20px;">
 									<div class="caption">
-										 <h3 class="col-md-offset-4" style="margin-bottom: 20px;"><small>回答数</small>10</h3>
+										 <h3 class="col-md-offset-4" style="margin-bottom: 20px;"><small>回答数</small><p th:text="${qst.commentCount}">10</p></h3>
 										
 										<button href="#" class="btn btn-danger btn-block"  data-toggle="modal" data-target="#QuestionModal" id="QuestionButton">我也要提问</button>
 										<button href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#CommentModal" id="CommentButton">我也要回答</button>
