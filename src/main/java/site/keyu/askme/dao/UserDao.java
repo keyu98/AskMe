@@ -1,5 +1,6 @@
 package site.keyu.askme.dao;
 
+import site.keyu.askme.cache.MyBatisRedisCache;
 import site.keyu.askme.pojo.User;
 import org.apache.ibatis.annotations.*;
 

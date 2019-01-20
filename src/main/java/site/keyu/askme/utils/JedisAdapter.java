@@ -17,7 +17,7 @@ import java.util.Set;
  */
 
 @Component
-public class JedisAdapter implements InitializingBean {
+public class JedisAdapter  implements InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(JedisAdapter.class);
     private JedisPool pool;
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 import site.keyu.askme.dao.QuestionDao;
 import site.keyu.askme.pojo.Question;
+import site.keyu.askme.utils.RedisCacheUtil;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
  */
 @Service
 public class QuestionService {
+    @Autowired
+    RedisCacheUtil redisCacheUtil;
 
     @Autowired
     QuestionDao questionDao;

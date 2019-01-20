@@ -9,6 +9,7 @@ import java.util.List;
  * @Author:Keyu
  */
 @Mapper
+@CacheNamespace(implementation = site.keyu.askme.cache.MyBatisRedisCache.class)
 public interface CommentDao {
     String TABLE_NAME = " comment ";
     String INSERT_FIELDS = " user_id, content, created_date, entity_id, entity_type, status ";
