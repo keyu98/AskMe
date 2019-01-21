@@ -10,9 +10,6 @@ public class Question {
     private String title;
     private String content;
     private Date createdDate;
-
-
-
     private int status;
     private int userId;
     private int commentCount;
@@ -37,7 +34,7 @@ public class Question {
         return status;
     }
 
-    public void setStatus(int statu) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

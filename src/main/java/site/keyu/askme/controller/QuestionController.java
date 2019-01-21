@@ -49,6 +49,11 @@ public class QuestionController {
         model.addAttribute("qst",question);
         model.addAttribute("cmts",lastedViewService.getCommentsById(id));
         model.addAttribute("cvos",lastedViewService.getLastedComment(0,5));
+        int adoptCommentId = question.getStatus();
+        if(adoptCommentId > 0){
+            Comment comment = commentService.getCommentById(adoptCommentId);
+            model.addAttribute("acmt",comment);
+        }
         return  "question";
     }
 

@@ -130,12 +130,16 @@
 								'You did,' said the Mock Turtle.</p>
 								<div>
 							<span class="badge" th:text="${#dates.format(qst.createdDate,'yyyy-MM-dd HH:mm:ss')}">Posted 2012-08-02 20:47:04</span><div class="pull-right"><span class="label label-default">alice</span> <span class="label label-primary">story</span> <span class="label label-success">blog</span> <span class="label label-info">personal</span> <span class="label label-warning">Warning</span>
-							<span class="label label-danger">Danger</span></div>         
+							<span class="label label-danger">Danger</span></div>
+									<div th:if="${acmt}">
+										采纳答案：
+										<p th:utext="${acmt.content}"></p>
+									</div>
 								 </div>
 								<div class="demo_line_01">👇</div>
 							</div>
 							</div>
-							
+
 							<div class="container">
 
 
