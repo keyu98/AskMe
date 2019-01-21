@@ -75,5 +75,9 @@ public class QuestionService {
         return questionDao.updateCommentCount(id, count);
     }
 
+    public int updateStatus(int id, int commentId) {
+        return questionDao.updateStatus(id, commentId);
+    }
+
 
 }

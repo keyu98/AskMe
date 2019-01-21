@@ -43,7 +43,7 @@ public class MyBatisRedisCache implements Cache {
 
     @Override
     public void putObject(Object key, Object value) {
-        logger.debug(">>>>>>存进缓存 key:"+key);
+        logger.debug(">>>>>>putObejct key:"+key);
 
         redisCacheUtil.putCathe(key,value);
 
@@ -52,14 +52,14 @@ public class MyBatisRedisCache implements Cache {
     @Override
     public Object getObject(Object key) {
 
-        logger.debug("<<<<<<<<取出缓存 key:"+key);
+        logger.debug("<<<<<<<<getObject key:"+key);
         Object value = redisCacheUtil.getCathe(key);
         return value;
     }
 
     @Override
     public Object removeObject(Object key) {
-        logger.debug(">>>>>>>>>移除缓存 key:"+key);
+        logger.debug(">>>>>>>>>removeObject key:"+key);
         return redisCacheUtil.removeCathe(key);
     }
 

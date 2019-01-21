@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import site.keyu.askme.pojo.Comment;
-import site.keyu.askme.pojo.LoginTicket;
-import site.keyu.askme.pojo.Question;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ import java.util.List;
 @Component
 public class RedisCacheUtil implements InitializingBean {
 
-    private static final Logger logger = LoggerFactory.getLogger(JedisAdapter.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisCacheUtil.class);
     private JedisPool pool;
 
 
@@ -35,6 +33,7 @@ public class RedisCacheUtil implements InitializingBean {
             jedis = pool.getResource();
             String json = JSONObject.toJSONString(value);
             jedis.set(key.toString(),json);
+//            logger.info("存储缓存 key:"+key);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
         } finally {
@@ -50,6 +49,13 @@ public class RedisCacheUtil implements InitializingBean {
             jedis = pool.getResource();
             String json = jedis.get(key.toString());
             List<Comment> value = JSON.parseArray(json,Comment.class);
+//            if (value == null){
+//                logger.info("未命中 key:"+key);
+//            }
+//            else{
+//                logger.info("命中 key:"+key);
+//            }
+
             return  value;
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());

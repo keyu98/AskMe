@@ -68,5 +68,21 @@ public class QuestionController {
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/user/adopt",method = {RequestMethod.POST})
+    public String adoptComment(RedirectAttributes redirectAttributes,
+                               @RequestParam("commentId") int commentId,
+                               @RequestParam("questionId") int qustionId,
+                               @RequestParam("questionUserId") int questionUserId){
+        redirectAttributes.addAttribute("id",qustionId);
+
+        if (hostHolder.getUser().getId() == questionUserId){
+            questionService.updateStatus(qustionId,commentId);
+
+            return "redirect:/qst";
+        }
+        return "redirect:/qst";
+    }
+
+
 
 }

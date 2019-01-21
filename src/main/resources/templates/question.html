@@ -160,6 +160,17 @@
 										   <div class="clearfix" ></div>
 											<p th:utext="${cmt.comment.content}">Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 											<p>
+											<div th:if="${user}">
+												<form action="/user/adopt" method="post" th:if="${qst.userId == user.id}">
+													<input type="hidden" name="commentId" th:value="${cmt.comment.id}" >
+													<input type="hidden" name="questionId" th:value="${qst.id}" >
+													<input type="hidden" name="questionUserId" th:value="${qst.userId}" >
+													<button type="submit" class="btn btn-default pull-right " aria-label="Left Align">
+
+														<span  aria-hidden="true" >采纳</span>
+													</button>
+												</form>
+										    </div>
 											<form action="/user/like" method="post" th:if="${not cmt.haslike and not cmt.hasdislike}">
 											    <input type="hidden" name="commentId" th:value="${cmt.comment.id}" >
 												<button type="submit" class="btn btn-default pull-right " aria-label="Left Align">
