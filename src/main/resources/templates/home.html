@@ -16,7 +16,7 @@
 	<title>Narrow Jumbotron Template for Bootstrap</title>
 
 	<!-- Bootstrap core CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!--<link href="css/bootstrap.css" rel="stylesheet">-->
 
 
 
@@ -129,7 +129,7 @@
 					Welcome to My Interactive Quiz Platform
 				</p>
 				<p>
-					<a class="btn btn-primary btn-large" href="https://github.com/Goldofzky">Learn more</a>
+					<button href="#" class="btn btn-primary btn-large"  data-toggle="modal" data-target="#QuestionModal" id="QuestionButton">提问</button>
 				</p>
 			</div>
 			<div class="row clearfix">
@@ -337,6 +337,32 @@
 	</div>
 </div>
 </div>
+
+
+<!-- 提问 -->
+<div class="modal fade" id="QuestionModal"  role="dialog"  aria-hidden="true" >
+	<form action="/user/submitqst" method="post">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel2">提问</h4>
+				</div>
+				<div class="modal-body">
+					<label>标题</label>
+					<textarea class="col-md-12" rows="1" type="text" id="title" name="title" required="required" style="resize:none" > </textarea>
+					<label>内容</label>
+					<textarea class="col-md-12" rows="6" type="text" id="content" name="content" required="required" style="resize:none" > </textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="submit" class="btn btn-primary">提交更改</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</form>
+</div>
+<!-- 提问 -->
 <!-- #####################################################footer#################################################################### -->
 <div class="container">
 
