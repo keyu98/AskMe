@@ -20,20 +20,20 @@ public class QuestionServiceTest {
     @Autowired
     QuestionService questionService;
 
-    @Test
-    public void postQuestionTest(){
-
-        for (int n = 0;n < 10;n ++){
-            Question question = new Question();
-            question.setTitle("问题题目" + n);
-            question.setContent("问题内容" + n);
-            question.setCreatedDate(new Date());
-            question.setUserId(2);
-            question.setCommentCount(0);
-            question.setStatus(0);
-            questionService.postQuestion(question);
-        }
-    }
+//    @Test
+//    public void postQuestionTest(){
+//
+//        for (int n = 0;n < 10;n ++){
+//            Question question = new Question();
+//            question.setTitle("问题题目" + n);
+//            question.setContent("问题内容" + n);
+//            question.setCreatedDate(new Date());
+//            question.setUserId(2);
+//            question.setCommentCount(0);
+//            question.setStatus(0);
+//            questionService.postQuestion(question);
+//        }
+//    }
 
     @Test
     public void postOneQuestionTest(){

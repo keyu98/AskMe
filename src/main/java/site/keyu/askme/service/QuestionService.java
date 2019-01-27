@@ -6,6 +6,7 @@ import org.springframework.web.util.HtmlUtils;
 import site.keyu.askme.dao.QuestionDao;
 import site.keyu.askme.pojo.Question;
 import site.keyu.askme.utils.RedisCacheUtil;
+import site.keyu.askme.utils.filter.SensitiveWordFilter;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class QuestionService {
     @Autowired
     QuestionDao questionDao;
 
+    @Autowired
+    SensitiveWordFilter sensitiveWordFilter;
+
     /**
      * 发布问题
      * @param question
@@ -31,6 +35,8 @@ public class QuestionService {
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
 
         //敏感词过滤
+        question.setContent(sensitiveWordFilter.filter(question.getContent()));
+        question.setTitle(sensitiveWordFilter.filter(question.getTitle()));
         //...
 
 

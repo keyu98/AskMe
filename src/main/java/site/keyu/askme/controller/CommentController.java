@@ -36,6 +36,7 @@ public class CommentController {
     @Autowired
     EventProducer eventProducer;
 
+
     @RequestMapping(path = "/user/submitcmt", method = {RequestMethod.POST})
     public String addComment(RedirectAttributes redirectAttributes,
                              @RequestParam("id") int id,

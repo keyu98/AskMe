@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 import site.keyu.askme.dao.CommentDao;
 import site.keyu.askme.pojo.Comment;
+import site.keyu.askme.utils.filter.SensitiveWordFilter;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ import java.util.List;
 public class CommentService {
     @Autowired
     CommentDao commentDao;
+
+    @Autowired
+    SensitiveWordFilter sensitiveWordFilter;
 
     /**
      * 获取评论
@@ -35,6 +39,7 @@ public class CommentService {
         //HTML过滤
         comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
         //敏感词过滤
+        comment.setContent(sensitiveWordFilter.filter(comment.getContent()));
         //...
 
         //发布

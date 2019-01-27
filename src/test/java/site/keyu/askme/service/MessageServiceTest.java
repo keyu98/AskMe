@@ -19,20 +19,20 @@ public class MessageServiceTest {
     @Autowired
     MessageService messageService;
 
-    @Test
-    public void addMessageTest(){
-
-        Message message = new Message();
-        message.setCreatedDate(new Date());
-        message.setFromId(1);
-        message.setToId(2);
-        message.setContent("你好");
-        message.setHasRead(0);
-        message.setConversationId("1_2");
-
-        messageService.addMessage(message);
-
-    }
+//    @Test
+//    public void addMessageTest(){
+//
+//        Message message = new Message();
+//        message.setCreatedDate(new Date());
+//        message.setFromId(1);
+//        message.setToId(2);
+//        message.setContent("你好");
+//        message.setHasRead(0);
+//        message.setConversationId("1_2");
+//
+//        messageService.addMessage(message);
+//
+//    }
 
     @Test
     public void getMessageTest(){
