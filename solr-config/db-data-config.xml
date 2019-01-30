@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<dataConfig>
+    <dataSource type="JdbcDataSource" 
+              driver="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/askme" 
+              useUnicode="true"
+              characterEncoding="utf8"
+              user="root" 
+              password="root"/>
+    <document>
+        <entity name="question"
+                query="select id,title,content from question">
+            <field column="content" name="question_content"/>
+            <field column="title" name="question_title"/>
+        </entity>
+    </document>
+</dataConfig>

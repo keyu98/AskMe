@@ -1,0 +1,186 @@
+<!DOCTYPE html >
+<html lang="zh-CN"  xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+
+	<!--背景图片-->
+		<div id="web_bg" style="background-image: url(image/bg.png);"></div>
+	</div>
+    <title>AskMe</title>
+	
+    <!-- Bootstrap core CSS -->
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+	
+	
+    
+	
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+	<script src="js/jquery-1.8.3.js"></script>
+
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	
+	<!------ Include the above in your HEAD tag ---------->
+	<link href="css/search.css" rel="stylesheet" >
+	  <!--<script type="text/javascript" src="js/quesion.js"></script>-->
+	  <link href="css/home.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+
+    <body>
+	<div class="container" >
+
+		<nav class="navbar navbar-default" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+						class="icon-bar"></span><span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">AskMe</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span>问题广场</a></li>
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+							class="glyphicon glyphicon-search"></span>查找<b class="caret"></b></a>
+						<ul class="dropdown-menu" style="min-width: 300px;">
+							<li>
+								<div class="row">
+									<div class="col-md-12">
+										<form class="navbar-form navbar-left" role="search" action="/search" method="get">
+											<div class="input-group">
+												<input type="text" class="form-control" name="text" placeholder="Search" />
+												<span class="input-group-btn">
+		                                            <button class="btn btn-primary" type="submit">
+		                                                Go!</button>
+		                                        </span>
+											</div>
+										</form>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" >
+					<li class="dropdown" th:if="${user}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+							class="glyphicon glyphicon-envelope"></span>信息<span class="label label-info">32</span>
+					</a>
+						<ul class="dropdown-menu" >
+							<li><a href="#"><span class="label label-warning">4:00 AM</span>Favourites Snippet</a></li>
+							<li><a href="#"><span class="label label-warning">4:30 AM</span>Email marketing</a></li>
+							<li><a href="#"><span class="label label-warning">5:00 AM</span>Subscriber focused email
+								design</a></li>
+							<li class="divider"></li>
+							<li><a href="#" class="text-center">View All</a></li>
+						</ul>
+					</li>
+					<li class="dropdown" th:if="${user}"><a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" th:text="${user.name}"><span
+							class="glyphicon glyphicon-user"></span>Admin <b class="caret"></b></a>
+						<ul class="dropdown-menu" >
+							<li><a href="#"><span class="glyphicon glyphicon-home" ></span>我的主页</a></li>
+							<li class="divider"></li>
+							<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>注销</a></li>
+						</ul>
+					</li>
+
+					<li class="dropdown" th:if="${user == Null}"><a href="/login" ><span
+							class="glyphicon glyphicon-log-in"></span>登录</a>
+
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</nav>
+	</div>
+		<!-- #####################################################header#################################################################### -->
+	
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column">				
+					<div class="container">
+					  <div class="row">
+						<div class="col-md-12">
+							<section class="comment-list"  th:each="vo : ${vos}">
+							  <!-- First Comment -->
+							  <article class="row" >
+								<div class="col-md-2 col-sm-2 hidden-xs">
+								  <figure class="thumbnail">
+									<img class="img-responsive" th:src="@{${vo.user.headUrl}}" src="http://images.nowcoder.com/head/112t.png" />
+									<figcaption class="text-center" th:text="${vo.user.name}">username</figcaption>
+								  </figure>
+								</div>
+								<div class="col-md-10 col-sm-10">
+								  <div class="panel panel-default arrow left">
+									<div class="panel-body">
+									  <header class="text-left">
+										<div class="comment-user" th:text="${vo.user.name}"><i class="fa fa-user" ></i> That Guy</div>
+										<time class="comment-date" datetime="16-12-2014 01:05" th:text="${#dates.format(vo.question.createdDate,'yyyy-MM-dd HH:mm:ss')}"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+									  </header>
+									  <div class="comment-post">
+										<h1 th:utext="${vo.question.title}">问题题目</h1>
+										<p th:utext="${vo.question.content}">
+										  问题内容
+										</p>
+									  </div>
+									  <p class="text-right"><a href="#" class="btn btn-default btn-sm"  th:href="@{~/qst(id = ${vo.question.id})}"><i class="fa fa-reply"></i> 查看</a></p>
+									
+									</div>
+								  </div>
+								</div>
+						
+					  </article>
+					  
+					</section>
+				</div>
+			  </div>
+			</div>
+
+							
+
+							
+						</div>
+
+						
+		
+		
+		<!-- #####################################################footer#################################################################### -->
+		<div class="container">
+		
+		    <hr>
+		        <div class="text-center center-block">
+		            <p class="txt-railway">- Copyright @AskMe 2019 -</p>
+		            <br />
+		            <button type="button" class="btn btn-default" aria-label="Left Align">
+					  <span class="glyphicon glyphicon-star" aria-hidden="true">  <strong>STAR</strong>myGithub</span>
+					</button>    
+					<button type="button" class="btn btn-default" aria-label="Left Align">
+					  <span class="glyphicon glyphicon-bitcoin" aria-hidden="true">  <strong>My Blog</strong></span>
+					</button>    
+		</div>
+		    <hr>
+		</div>
+
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
