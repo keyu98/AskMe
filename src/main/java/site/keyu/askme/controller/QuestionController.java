@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import site.keyu.askme.async.EventModel;
+import site.keyu.askme.async.EventProducer;
+import site.keyu.askme.async.EventType;
 import site.keyu.askme.pojo.*;
 import site.keyu.askme.service.CommentService;
 import site.keyu.askme.service.LastedViewService;
@@ -36,6 +39,9 @@ public class QuestionController {
 
     @Autowired
     HostHolder hostHolder;
+
+    @Autowired
+    EventProducer eventProducer;
 
 
     /**
@@ -71,7 +77,11 @@ public class QuestionController {
         question.setCreatedDate(new Date());
         question.setUserId(hostHolder.getUser().getId());
 
-        questionService.postQuestion(question);
+        if (questionService.postQuestion(question) > 0){
+            eventProducer.fireEvent(new EventModel(EventType.ADDINDEX)
+                .setActorId(question.getUserId()).setEntityId(question.getId())
+                .setExt("title",question.getTitle()).setExt("content",question.getContent()));
+        }
 
         return "redirect:/";
     }

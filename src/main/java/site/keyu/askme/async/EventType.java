@@ -6,7 +6,8 @@ package site.keyu.askme.async;
 public enum  EventType {
     LIKE(0),
     ADOPT(1),
-    COMMENT(2);
+    COMMENT(2),
+    ADDINDEX(3);
 
     private int value;
     EventType(int value){

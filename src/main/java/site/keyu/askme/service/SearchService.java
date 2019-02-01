@@ -3,6 +3,8 @@ package site.keyu.askme.service;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.apache.solr.common.SolrInputDocument;
 import org.springframework.stereotype.Service;
 import site.keyu.askme.pojo.Question;
 
@@ -39,7 +41,7 @@ public class SearchService {
         for (Map.Entry<String, Map<String, List<String>>> entry : response.getHighlighting().entrySet()) {
             Question q = new Question();
             q.setId(Integer.parseInt(entry.getKey()));
-            System.out.println(entry);
+
             //问题题目
             if (entry.getValue().containsKey(QUESTION_TITLE)) {
                 List<String> titleList = entry.getValue().get(QUESTION_TITLE);
@@ -57,6 +59,15 @@ public class SearchService {
             questionList.add(q);
         }
         return questionList;
+    }
+
+    public boolean addQuestionIndex(int id,String title,String content) throws Exception{
+        SolrInputDocument document = new SolrInputDocument();
+        document.setField("id",id);
+        document.setField(QUESTION_TITLE,title);
+        document.setField(QUESTION_CONTENT,content);
+        UpdateResponse response = client.add(document,1000);
+        return response != null && response.getStatus() == 0;
     }
 
 
