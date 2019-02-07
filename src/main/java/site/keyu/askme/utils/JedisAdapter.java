@@ -87,6 +87,21 @@ public class JedisAdapter  implements InitializingBean {
         return false;
     }
 
+    public Set<String> smembers(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.smembers(key);
+        } catch (Exception e) {
+            logger.error("发生异常" + e.getMessage());
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+        return null;
+    }
+
     public List<String> brpop(int timeout, String key) {
         Jedis jedis = null;
         try {
@@ -100,6 +115,21 @@ public class JedisAdapter  implements InitializingBean {
             }
         }
         return null;
+    }
+
+    public boolean exists(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.exists( key);
+        } catch (Exception e) {
+            logger.error("发生异常" + e.getMessage());
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+        return false;
     }
 
     public long lpush(String key, String value) {
@@ -257,4 +287,5 @@ public class JedisAdapter  implements InitializingBean {
         }
         return null;
     }
+
 }

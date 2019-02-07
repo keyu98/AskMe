@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import site.keyu.askme.utils.JedisAdapter;
 import site.keyu.askme.utils.RedisKeyUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author:Keyu
@@ -53,10 +50,25 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                     String key = RedisKeyUtil.eventQueueKey();
                     List<String> events = jedisAdapter.brpop(0,key);
 
+                    //若上次有未处理事件
+                    if (jedisAdapter.exists(RedisKeyUtil.eventDoingKey())){
+                        //取出失败事件
+                        Set<String> undoingevents = jedisAdapter.smembers(RedisKeyUtil.eventDoingKey());
+
+                        for (String message:undoingevents){
+                            //将失败事件放进队列尾
+                            jedisAdapter.lpush(key,message);
+                        }
+                    }
+
+
                     for (String message:events){
                         if(message.equals(key)){
                             continue;
                         }
+                        //将消息放进EVENT_DOING中存储起来
+                        //EVENT_DOING存储正在进行的事件
+                        jedisAdapter.sadd(RedisKeyUtil.eventDoingKey(),message);
 
                         EventModel eventModel = JSON.parseObject(message,EventModel.class);
                         if(!config.containsKey(eventModel.getType())){
@@ -64,9 +76,19 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                             continue;
                         }
 
-                        for (EventHandler handler:config.get(eventModel.getType())){
-                            handler.doHandle(eventModel);
+                        //目前一个任务只有一个消费者消费，暂时不考虑回滚
+                        try{
+                            for (EventHandler handler:config.get(eventModel.getType())){
+                                //开始处理事件
+                                handler.doHandle(eventModel);
+                            }
+                            //处理结束，将消息移除
+                            jedisAdapter.srem(RedisKeyUtil.eventDoingKey(),message);
+                        }catch (Exception e){
+                            logger.error("事件处理失败");
                         }
+
+
                     }
                 }
             }
