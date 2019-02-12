@@ -32,7 +32,7 @@ public class RedisCacheUtil implements InitializingBean {
         try {
             jedis = pool.getResource();
             String json = JSONObject.toJSONString(value);
-            jedis.set(key.toString(),json);
+            jedis.set(String.valueOf(key.hashCode()),json);
 //            logger.info("存储缓存 key:"+key);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
@@ -47,7 +47,7 @@ public class RedisCacheUtil implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            String json = jedis.get(key.toString());
+            String json = jedis.get(String.valueOf(key.hashCode()));
             List<Comment> value = JSON.parseArray(json,Comment.class);
 //            if (value == null){
 //                logger.info("未命中 key:"+key);
@@ -71,7 +71,7 @@ public class RedisCacheUtil implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            return  jedis.expire(key.toString(),0);
+            return  jedis.expire(String.valueOf(key.hashCode()),0);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
         } finally {
