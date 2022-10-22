@@ -146,7 +146,7 @@ CREATE TABLE `login_ticket` (
 * 性能极高-Redis能读的速度是110000次/s,写的速度是81000次/s
 ## 具体实现
 我的博客：
-[项目实战:Spring Boot下关于MyBatis的二级缓存](https://keyu.site/2019/01/20/mybatisrediscache/)
+[项目实战:Spring Boot下关于MyBatis的二级缓存](https://github.com/keyu98/keyu98.github.io/blob/backup/_posts/2019-01-20-mybatisrediscache.md)
 
 # 异步队列
 ## 场景
@@ -159,4 +159,4 @@ CREATE TABLE `login_ticket` (
 在队列中顺序进行，对于实时性不高的任务，可以慢慢执行，减轻了数据库的压力。
 ![](https://keyu.site/img/in-post/eventqueue.PNG)
 ### 具体实现
-我的博客：[项目实战:Redis实现的异步队列缓解压力](https://keyu.site/2019/01/21/eventqueue/)
+我的博客：[项目实战:Redis实现的异步队列缓解压力](https://github.com/keyu98/keyu98.github.io/blob/backup/_posts/2019-01-21-eventqueue.md)
